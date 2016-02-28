@@ -44,7 +44,7 @@ public class ThreadTracker {
    * Called just before new thread is started.
    * 
    * It checks if this thread class has already been instrumented. If not, the instrumentation is triggered.
-   *  
+   * 
    * @param threadClass The class of the thread which is about to be started.
    */
   public static void threadStarting(final Class<?> threadClass) {
@@ -61,7 +61,7 @@ public class ThreadTracker {
   }
 
   /**
-   * Registers the specified thread subclass internally. Returns true if this class hasn't been registered before. 
+   * Registers the specified thread subclass internally. Returns true if this class hasn't been registered before.
    * 
    * @param loader Class loader of the thread class.
    * @param internalName Internal name of the thread class.

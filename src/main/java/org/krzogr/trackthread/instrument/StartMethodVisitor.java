@@ -40,8 +40,9 @@ public class StartMethodVisitor extends MethodVisitor {
         "(Ljava/lang/Class;)V", false);
 
     mv.visitVarInsn(Opcodes.ALOAD, 0);
-    mv.visitMethodInsn(Opcodes.INVOKESTATIC, "org/krzogr/trackthread/ThreadListeners", "fireThreadStarting", "(Ljava/lang/Thread;)V", false);
-    
+    mv.visitMethodInsn(Opcodes.INVOKESTATIC, "org/krzogr/trackthread/ThreadListeners", "fireThreadStarting",
+        "(Ljava/lang/Thread;)V", false);
+
     super.visitCode();
   }
 }

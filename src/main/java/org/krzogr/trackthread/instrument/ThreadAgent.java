@@ -28,13 +28,13 @@ import org.krzogr.trackthread.ThreadListeners;
 public class ThreadAgent {
   public static void premain(final String agentArgs, final Instrumentation inst) {
     ThreadTracker.initialize(inst);
-    
+
     inst.addTransformer(new ThreadClassTransformer(), true);
-    
-    if(agentArgs != null) {
+
+    if (agentArgs != null) {
       addThreadListener(agentArgs);
     }
-  
+
     transformJavaLangThreadClass(inst);
   }
 
@@ -48,7 +48,7 @@ public class ThreadAgent {
       e.printStackTrace();
     }
   }
-  
+
   private static void transformJavaLangThreadClass(final Instrumentation inst) {
     try {
       inst.retransformClasses(Class.forName("java.lang.Thread"));
