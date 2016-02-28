@@ -47,6 +47,7 @@ public class ThreadClassTransformer implements ClassFileTransformer {
       final boolean isThreadSubclass) {
     try {
       ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
+      
       ClassVisitor cv = isThreadSubclass ? new ThreadSubclassVisitor(Opcodes.ASM4, cw) : new ThreadClassVisitor(
           Opcodes.ASM4, cw);
 

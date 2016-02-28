@@ -26,10 +26,10 @@ import java.util.WeakHashMap;
 /**
  * Performs tracking of all thread subclasses at runtime.
  * 
- * Thread tracking is needed in order to ensure that every thread subclass has its bytes instrumented. Since it is hard
- * to determine whether a class is thread subclass during initial instrumentation, the actual instrumentation is delayed
- * and performed lazily on demand. Before starting a new thread, the code checks whether this new thread class has
- * already been instrumented. If not, it is instrumented on demand just before the new thread is started.
+ * Thread tracking is needed in order to ensure that every thread subclass has its bytes instrumented. The actual
+ * instrumentation of thread subclasses is delayed and performed lazily on demand. Before starting a new thread, the
+ * code checks whether this new thread class has already been instrumented. If not, it is instrumented on demand just
+ * before the new thread is started.
  */
 public class ThreadTracker {
   private static Instrumentation instrumentation;

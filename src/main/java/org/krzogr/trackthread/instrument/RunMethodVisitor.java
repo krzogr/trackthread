@@ -49,6 +49,7 @@ public class RunMethodVisitor extends AdviceAdapter {
     mv.visitLabel(startFinally);
   }
 
+  @Override
   public void visitMaxs(final int maxStack, final int maxLocals) {
     Label endFinally = new Label();
     mv.visitTryCatchBlock(startFinally, endFinally, endFinally, null);
@@ -58,6 +59,7 @@ public class RunMethodVisitor extends AdviceAdapter {
     mv.visitMaxs(maxStack, maxLocals);
   }
 
+  @Override
   protected void onMethodExit(final int opcode) {
     if (opcode != Opcodes.ATHROW) {
       onFinally(opcode);

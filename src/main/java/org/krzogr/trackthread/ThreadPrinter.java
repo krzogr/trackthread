@@ -29,6 +29,7 @@ import org.krzogr.trackthread.ThreadListener;
 public class ThreadPrinter implements ThreadListener {
   private static AtomicInteger threadCount = new AtomicInteger();
 
+  @Override
   public void onThreadStarting(final Thread thread) {
     StringBuilder buffer = createBuffer();
 
@@ -39,6 +40,7 @@ public class ThreadPrinter implements ThreadListener {
     System.out.println(buffer.toString());
   }
 
+  @Override
   public void onThreadRunning(final Thread thread) {
     threadCount.incrementAndGet();
 
@@ -50,6 +52,7 @@ public class ThreadPrinter implements ThreadListener {
     System.out.println(buffer.toString());
   }
 
+  @Override
   public void onThreadRename(final Thread thread, final String newName) {
     StringBuilder buffer = createBuffer();
 
@@ -60,6 +63,7 @@ public class ThreadPrinter implements ThreadListener {
     System.out.println(buffer.toString());
   }
 
+  @Override
   public void onThreadStopping(final Thread thread) {
     threadCount.decrementAndGet();
 

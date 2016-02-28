@@ -4,10 +4,10 @@ Java instrumentation agent which enables to track and intercept thread lifecycle
 # Introduction
 
 Trackthread is a java instrumentation agent which enables to track and intercept thread lifecycle events. It enables applications to register custom thread listeners at runtime, which will be notified of thread related events. Trackthread distinguishes the following thread lifecycle events: 
-* ThreadStarting: Called from within thread's start method before the new thread is actually started. This event is triggered in the context of the parent thread which is executing `Thread.start()`.
-* ThreadRunning: Called from within thread's run method just after thread code has started executing. This event is triggered in the context of the child thread.
-* ThreadStopping: Called just before thread termination. This event is triggered in the context of the child thread. It is triggered from within child thread's run method just before exiting from it. It is called in the try/finally fashion to intercept all exit paths from the run method.
-* ThreadRename: Called when the thread is about to be renamed. This event is triggered in the context of the thread which is calling `Thread.setName()`. 
+* *ThreadStarting*: Called from within thread's start method before the new thread is actually started. This event is triggered in the context of the parent thread which is executing `Thread.start()`.
+* *ThreadRunning*: Called from within child thread's run method just after thread code has started executing. This event is triggered in the context of the child thread.
+* *ThreadStopping*: Called just before thread termination. It is triggered from within child thread's run method just before exiting from it. It is called in the try/finally fashion to intercept all exit paths from the run method. This event is triggered in the context of the child thread.
+* *ThreadRename*: Called when the thread is about to be renamed. This event is triggered in the context of the thread which is calling `Thread.setName()`. 
 
 Applications can provide their own implementations of `ThreadListener` and register it globally just after application startup using `ThreadListeners.addListener()`. 
 
@@ -58,7 +58,7 @@ public class ThreadListenerExample {
     
     System.out.println("Before thread");
     
-    Thread t = new Thread() {
+    Thread thread = new Thread() {
       @Override
       public void run() {
         System.out.println("Running thread");
@@ -67,8 +67,8 @@ public class ThreadListenerExample {
       }
     };
     
-    t.start();
-    t.join();
+    thread.start();
+    thread.join();
     
     System.out.println("After thread");
   }
