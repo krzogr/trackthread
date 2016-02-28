@@ -1,0 +1,79 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.krzogr</groupId>
+	<artifactId>trackthread</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0</version>
+	<name>Java instrumentation agent which enables to track and intercept thread lifecycle events</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>${project.artifactId}-fetch-deps</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.outputDirectory}</outputDirectory>
+							<stripVersion>true</stripVersion>
+							<excludeTransitive>true</excludeTransitive>
+							<includeArtifactIds>asm,asm-commons</includeArtifactIds>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<archive>
+						<index>true</index>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+						<manifestEntries>
+							<Premain-Class>org.krzogr.trackthread.instrument.ThreadAgent</Premain-Class>
+							<Agent-Class>org.krzogr.trackthread.instrument.ThreadAgent</Agent-Class>
+							<Can-Redefine-Classes>true</Can-Redefine-Classes>
+							<Can-Retransform-Classes>true</Can-Retransform-Classes>
+							<Boot-Class-Path>${project.build.finalName}.jar</Boot-Class-Path>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm</artifactId>
+			<version>5.0.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm-commons</artifactId>
+			<version>5.0.4</version>
+		</dependency>
+	</dependencies>
+</project>
